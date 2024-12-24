@@ -14,7 +14,7 @@ export default async function seed() {
 		{ name: 'Andres', age: 28, isActive: true },
 		{ name: 'Perez', age: 31, isActive: true },
 		{ name: 'Gonzales', age: 30, isActive: false },
-	]).execute();
+	]);
 
 	console.log('Seeded database');
 }
