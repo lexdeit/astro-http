@@ -85,9 +85,21 @@ export const PUT: APIRoute = async ({ params, request }) => {
         }
 
         const body = await request.json();
+        const likes = body.likes || 0;
+
+        const posts = await db.select().from(Posts).where(eq(Posts.id, Id));
+
+        if (posts.length === 0) {
+            return new Response(JSON.stringify({ message: "Post not found" }), {
+                status: 404,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+        }
 
         const res = await db.update(Posts).set({
-            likes: body.likes,
+            likes: posts[0].likes + likes,
         }).where(eq(Posts.id, Id));
 
         if (res.rowsAffected === 0) {
